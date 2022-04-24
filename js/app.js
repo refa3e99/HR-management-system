@@ -1,25 +1,39 @@
 'use strict';
 
+// connect html to js
+let main = document.getElementById("main");
+let form = document.getElementById("form");
+let submitButton = document.getElementById("submit");
+
+
+
+
+
 let allEmployee = []
+let num=1000;
+
 // constructor
-function employee(employee_ID , employee_name , department , level ){
-    this.employee_ID = employee_ID;
+function employee(employee_name , department , level ,profilePic){
+    this.employee_ID = num++;
     this.employee_name = employee_name;
     this.department = department;
     this.level = level;
-
+    this.profilePic = profilePic;
     allEmployee.push(this);
 }
 
+//employee data
+let emp1 = new employee( "Ghazi Samer" , "Administration" , "Senior","./style/assest/profilepic.jpg");
+let emp2 = new employee( "Lana Ali" , "Finance" , "Senior" , "./style/assest/profilepic.jpg");
+let emp3 = new employee( "Tamara Ayoub" , "Marketing" , "Senior" , "./style/assest/profilepic.jpg");
+let emp4 = new employee( "Safi Walid" , "Administration" , "Mid-Senior" , "./style/assest/profilepic.jpg");
+let emp5 = new employee( "Omar Zaid" , "Development" , "Senior" , "./style/assest/profilepic.jpg");
+let emp6 = new employee( "Rana Saleh" , "Development" , "Junior" , "./style/assest/profilepic.jpg");
+let emp7 = new employee( "Hadi Ahmad" , "Finance" , "Mid-Senior" , "./style/assest/profilepic.jpg");
 
-let emp1 = new employee(1000 , "Ghazi Samer" , "Administration" , "Senior");
-let emp2 = new employee(1001 , "Lana Ali" , "Finance" , "Senior");
-let emp3 = new employee(1002 , "Tamara Ayoub" , "Marketing" , "Senior");
-let emp4 = new employee(1003 , "Safi Walid" , "Administration" , "Mid-Senior");
-let emp5 = new employee(1004 , "Omar Zaid" , "Development" , "Senior");
-let emp6 = new employee(1005 , "Rana Saleh" , "Development" , "Junior");
-let emp7 = new employee(1006 , "Hadi Ahmad" , "Finance" , "Mid-Senior");
 
+
+//employee salary
 employee.prototype.salary = function(){
     
     if(this.level == "Senior"){
@@ -31,25 +45,29 @@ employee.prototype.salary = function(){
     else if(this.level == "Junior"){
         this.salary = (Math.floor(Math.random() * (1000 - 500) ) + 500)-(Math.floor(Math.random() * (1000 - 500) ) + 500)*7.5/100 ;
     }
-    return this.salary
+    return Math.floor(this.salary)
 }
 
 
-
+// employee render
 employee.prototype.render = function(){
 
-/*let table = document.getElementById("table");
+    let empCard = document.createElement("div");
+    empCard.setAttribute("class","empCard")
+    main.appendChild(empCard);
 
-for (let i = 0; i<allEmployee.length;i++){
-    let row = `<tr>
-                    <td>${allEmployee[i].employee_name}</td>
-               </tr>
-    `
-    table.innerHTML += row
+    let profilePic = document.createElement("img");
+    profilePic.setAttribute("src",this.profilePic);
+    empCard.appendChild(profilePic);
 
-}*/
+    let name = document.createElement("span");
+    name.textContent = "Name: " + this.employee_name +" - ID: "+ this.employee_ID;
+    empCard.appendChild(name);
 
-  document.write(`<p>${this.employee_name} </p>` + `<p>${this.salary()} </p>`)
+    let department = document.createElement("span");
+    department.textContent = "Department : "+this.department + " - Level : "+this.level+" "+this.salary()+"JD";
+    empCard.appendChild(department);
+    
 }
 
 
@@ -57,3 +75,16 @@ for(let i=0; i<=allEmployee.length-1;i++){
     allEmployee[i].render();
 }
 
+
+form.addEventListener('submit' , handleSubmit);
+
+function handleSubmit(event){
+    event.preventDefault();
+    let name = event.target.fullName.value;
+    let department = event.target.department.value;
+    let level = event.target.level.value;
+    let image = event.target.image.value;
+    let newEmployee = new employee( name , department , level , image);
+
+    newEmployee.render();
+}
