@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .container {
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr 1fr;
@@ -50,9 +52,32 @@ nav {
 main {
     background-color: #eaece5 ;
     grid-area: main;
+    
 }
 
+.table_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    font-weight: 600;
+}
+
+table{
+    margin-top: 20vh;
+}
+
+table, th, td {
+ padding: 5px 15px;
+ border : 2px solid black;
+ border-collapse: collapse;
+
+}
+
+#total_emp,#avgS,#totS,#total{
+    background-color: #3b3a30;
+    color: #eaece5;
+}
 
 footer {
     background-color: #b2c2bf;
